@@ -1,0 +1,100 @@
+﻿信息系统与数据库技术练习14答题卡
+
+班级：信管2班     
+姓名：钟富琴     
+学号：20190307217     
+
+注：请将答案放置在序号下方。*/
+
+（一）
+1.
+USE PROJECT
+
+
+2.
+CREATE PROC p_ep1
+AS
+SELECT Employee.Did,Eid,Project.Ename,Esex,Pid,Pname,Wages
+FROM Employee JOIN Project JOIN EP
+ON Project.Ename=EP.Ename
+ON Employee.Did=EP.Did
+
+
+3.
+EXEC p_ep1
+
+
+
+4.
+CREATE PROC p_ep2
+AS
+SELECT Employee.Eid,WorkDate,Project.Cid,Did,EPEPore
+FROM Employee JOIN Project JOIN EP
+ON Project.Cid=EP.Cid
+ON Employee.Eid=EP.Eid
+
+
+5.
+EXEC p_ep2 @WorkDate='1990-07-01 00:00:00.000',@Did='D001' 
+
+
+6.
+CREATE PROC p_ep3
+@Dname VARCHAR(20)='财务部'
+AS
+SELECT Department.Did,Dname,Eid, Ename,Esex,WorkDate
+FROM Department JOIN Employee
+ON Department.Did=Employee.DID
+WHERE Dname=@Dname
+
+
+7.
+EXEC p_ep3
+
+8.
+EXEC p_ep3 @Dname='人事部'
+
+9.
+CREATE PROC p_ep4
+@BasePay INT
+AS
+SELECT *
+FROM Employee
+WHERE BasePay>@BasePay
+
+
+10.
+EXEC p_ep4 @Wages>8000
+
+
+11.
+CREATE PROC p_emp
+@Ename VARCHAR(10)
+AS
+SELECT *
+FROM Employee
+WHERE Ename LIKE '%'+@Ename+'%'
+
+
+12.
+EXEC p_emp @Ename='丽'
+
+13.
+EXEC sp_helptext p_emp
+
+14.
+ALTER PROC p_ep3
+@Dname VARCHAR(20)='财务部'
+AS
+SELECT Department.Did,Dname,Eid, Ename,Esex,WorkDate
+FROM Department JOIN Employee
+ON Department.Did=Employee.DID
+WHERE Dname=@Dname
+
+
+15.
+EXEC sp_helptext p_ep3
+
+
+16.
+DROP PROC p_ep3
